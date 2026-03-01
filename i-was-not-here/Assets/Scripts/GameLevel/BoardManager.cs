@@ -10,14 +10,12 @@ public class BoardManager : MonoBehaviour
     [SerializeField] Tile wallTile;
     [SerializeField] Tile exitTile;
 
-    [SerializeField] private int maxHeight = 100;
-    [SerializeField] private int maxWidth = 100;
-    [SerializeField] private int maxCells = 800;
+    [SerializeField] private int maxCells = 15;
 
     private Tilemap tileMap;
     private Grid grid;
-
     private List<Vector2Int> neighbourCellsCoords;
+
 
     public void Start()
     {
@@ -54,7 +52,16 @@ public class BoardManager : MonoBehaviour
 
             SetCellTile(coord, tile);
             AddNeighbourCellsCoords(neighbourCellsCoords, coord);
+        }
 
+        while (neighbourCellsCoords.Count > 0)
+        {
+            var candidate = neighbourCellsCoords[0];
+
+            if ((!tileMap.HasTile(new Vector3Int(candidate.x, candidate.y, 0))))
+                SetCellTile(candidate, wallTile);
+
+            neighbourCellsCoords.RemoveAt(0);
         }
     }
 
@@ -65,10 +72,12 @@ public class BoardManager : MonoBehaviour
 
     private void AddNeighbourCellsCoords(List<Vector2Int> neighbours, Vector2Int coord)
     {
-        neighbourCellsCoords.Add(new Vector2Int(coord.x + 1, coord.y));
-        neighbourCellsCoords.Add(new Vector2Int(coord.x - 1, coord.y));
-        neighbourCellsCoords.Add(new Vector2Int(coord.x, coord.y + 1));
-        neighbourCellsCoords.Add(new Vector2Int(coord.x, coord.y - 1));
+        neighbours.Add(new Vector2Int(coord.x + 1, coord.y));
+        neighbours.Add(new Vector2Int(coord.x - 1, coord.y));
+        neighbours.Add(new Vector2Int(coord.x, coord.y + 1));
+        neighbours.Add(new Vector2Int(coord.x, coord.y - 1));
+
     }
+
 
 }
