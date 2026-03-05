@@ -13,6 +13,12 @@ public class PlayerController : MonoBehaviour
 
     public void Update()
     {
+        Vector3 moveDir = GetDir();
+        Move(moveDir);
+    }
+
+    private Vector3 GetDir()
+    {
         Vector3 move = Vector3.zero;
 
         if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow))
@@ -32,9 +38,14 @@ public class PlayerController : MonoBehaviour
             move += Vector3.right;
         }
 
-        if (move != Vector3.zero)
+        return move;
+    }
+
+    private void Move(Vector3 moveDirection)
+    {
+        if (moveDirection != Vector3.zero)
         {
-            move = move.normalized * moveSpeed * Time.deltaTime;
+            moveDirection = moveDirection.normalized * moveSpeed * Time.deltaTime;
             animator.SetBool("isWalking", true);
         }
         else
@@ -42,6 +53,6 @@ public class PlayerController : MonoBehaviour
             animator.SetBool("isWalking", false);
         }
 
-            transform.Translate(move);
+        transform.Translate(moveDirection);
     }
 }
