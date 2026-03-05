@@ -802,8 +802,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 28b32d2d4670cf848939297e29517df8, type: 2}
   wallTile: {fileID: 11400000, guid: 5aadbd969486f1d4aabc0750cc033773, type: 2}
   exitTile: {fileID: 11400000, guid: 0d092d90decb57b44a8236bf93b8ef8c, type: 2}
-  popaPrefab: {fileID: 0}
-  nepotrebstvoPrefab: {fileID: 0}
+  popaPrefab: {fileID: 3340516976137106004, guid: f82ba1ad17bf46445ac610fa6d56a6f3, type: 3}
+  nepotrebstvoPrefab: {fileID: 5147170856090626907, guid: d3409e847c6043b42adee8cc9e1fa201, type: 3}
   maxCells: 5000
 --- !u!1 &1931619490
 GameObject:
