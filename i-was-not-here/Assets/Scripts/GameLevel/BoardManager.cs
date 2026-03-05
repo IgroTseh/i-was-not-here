@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.U2D.Aseprite;
@@ -9,6 +10,7 @@ public class BoardManager : MonoBehaviour
     [SerializeField] Tile[] floorTiles;
     [SerializeField] Tile wallTile;
     [SerializeField] Tile exitTile;
+    [SerializeField] Exit exitPrefab;
 
     [SerializeField] private int maxCells = 15;
 
@@ -26,6 +28,7 @@ public class BoardManager : MonoBehaviour
 
         GenerateField();
         GenerateWalls();
+        GenerateExit();
     }
 
     private void GenerateField()
@@ -42,12 +45,12 @@ public class BoardManager : MonoBehaviour
             }
             else
             {
-                int randomNeighbourIndex = Random.Range(0, neighbourCellsCoords.Count);
+                int randomNeighbourIndex = UnityEngine.Random.Range(0, neighbourCellsCoords.Count);
                 coord = neighbourCellsCoords[randomNeighbourIndex];
                 neighbourCellsCoords.RemoveAt(randomNeighbourIndex);
             }
 
-            int randomTileIndex = Random.Range(0, floorTiles.Length);
+            int randomTileIndex = UnityEngine.Random.Range(0, floorTiles.Length);
             tile = floorTiles[randomTileIndex];
 
             SetCellTile(coord, tile);
@@ -57,24 +60,46 @@ public class BoardManager : MonoBehaviour
 
     private void GenerateWalls()
     {
-        while (neighbourCellsCoords.Count > 0)
+        for (int i = neighbourCellsCoords.Count - 1; i >= 0; i--)
         {
-            var candidate = neighbourCellsCoords[0];
+            var candidate = neighbourCellsCoords[i];
 
             if ((!tileMap.HasTile(new Vector3Int(candidate.x, candidate.y, 0))))
             {
-                SetCellTile(candidate, wallTile);
-                Debug.Log("Stena");
+                if (i == neighbourCellsCoords.Count - 1)
+                {
+                    Debug.Log("Vihod");
+                    SetCellTile(candidate, exitTile);
+                }
+                else
+                {
+                    Debug.Log("Stena");
+                    SetCellTile(candidate, wallTile);
+                }
             }
-
-            neighbourCellsCoords.RemoveAt(0);
         }
+
+
+    }
+
+
+    private void GenerateExit()
+    {
+        int randomNeighbourIndex = UnityEngine.Random.Range(0, neighbourCellsCoords.Count);
+        Vector2Int randomNeighbourCoords = neighbourCellsCoords[randomNeighbourIndex];
+
+        SetCellTile(randomNeighbourCoords, exitTile);
+
+        Vector3 exitCoords = new Vector3(randomNeighbourCoords.x, randomNeighbourCoords.y, 10);
+        Instantiate(exitPrefab, exitCoords, Quaternion.identity);
+
     }
 
     private void SetCellTile(Vector2Int coord, Tile tile)
     {
         tileMap.SetTile(new Vector3Int(coord.x, coord.y, 0), tile);
     }
+
 
     private void AddNeighbourCellsCoords(List<Vector2Int> neighbours, Vector2Int coord)
     {
