@@ -136,7 +136,7 @@ GameObject:
   - component: {fileID: 466774853}
   - component: {fileID: 466774852}
   - component: {fileID: 466774854}
-  m_Layer: 10
+  m_Layer: 11
   m_Name: ExitTileMap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -349,6 +349,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67e480b01587b4540b58a65d0139931a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentRep: 0
+  maxRep: 0
 --- !u!4 &788972430
 Transform:
   m_ObjectHideFlags: 0
@@ -878,7 +880,6 @@ GameObject:
   - component: {fileID: 1931619494}
   - component: {fileID: 1931619495}
   - component: {fileID: 1931619496}
-  - component: {fileID: 1931619497}
   m_Layer: 12
   m_Name: Player
   m_TagString: Untagged
@@ -1050,18 +1051,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &1931619497
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1931619490}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bc958b7567b081a44962e8abb14a2286, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

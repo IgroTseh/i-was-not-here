@@ -1,14 +1,15 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Tilemaps;
 using UnityEngine;
 
 public class MobController : MonoBehaviour
 {
     private FovController fovController;
 
-    [SerializeField] private float changeDirTimer = 10f;
-    [SerializeField] private float moveSpeed = 2f;
+    [SerializeField] private float changeDirTimer = 2f;
+    [SerializeField] private float moveSpeed = 1.5f;
     private List<GameObject> objectsInFov;
 
     private float currTimer;
@@ -16,7 +17,7 @@ public class MobController : MonoBehaviour
 
     private void Awake()
     {
-        currTimer = 0f;
+        currTimer = changeDirTimer;
         moveDir = Vector3.zero;
 
         objectsInFov = new List<GameObject>();
@@ -29,7 +30,7 @@ public class MobController : MonoBehaviour
         bool areThereDetections = isFovDetection();
 
         if (areThereDetections)
-        {
+        {;
             // Objects detected
             bool isPlayerInFov = false;
             int cntNepotrebstvo = 0;
@@ -39,7 +40,6 @@ public class MobController : MonoBehaviour
                 if (obj.GetComponent<PlayerController>())
                 {
                     isPlayerInFov = true;
-                    Debug.Log("PlayerDetected");
                     Move(GetDirToObject(obj));
                 }
                 else if (obj.GetComponent<Nepotrebstvo>())
@@ -48,6 +48,7 @@ public class MobController : MonoBehaviour
                     if (isPlayerInFov)
                         Move(GetDirToObject(obj));
                 }
+
             }
 
             if (isPlayerInFov)
@@ -57,6 +58,8 @@ public class MobController : MonoBehaviour
                 else
                     GameManager.Instance.ChangeRep(-5);
             }
+
+            currTimer = changeDirTimer;
         }
         else
         {
@@ -71,19 +74,17 @@ public class MobController : MonoBehaviour
         }
     }
 
-
     private Vector3 GetRandomDir()
     {
-        int dirIndex = UnityEngine.Random.Range(0, 4);
-
-        switch (dirIndex)
+        var directions = new List<Vector3>
         {
-            case 0: return Vector3.up;
-            case 1: return Vector3.down;
-            case 2: return Vector3.left;
-            case 3: return Vector3.right;
-            default: return Vector3.zero;
-        }
+            Vector3.up,
+            Vector3.down,
+            Vector3.left,
+            Vector3.right
+        };
+        int randomDirIndex = UnityEngine.Random.Range(0, directions.Count);
+        return directions[randomDirIndex];
     }
 
     private void Move(Vector3 moveDir)
@@ -100,6 +101,20 @@ public class MobController : MonoBehaviour
     private bool isFovDetection()
     {
         objectsInFov = fovController.GetObjectsInFov();
-        return objectsInFov.Count > 0;
+
+        foreach (var obj in objectsInFov)
+            if (obj.gameObject.GetComponent<PlayerController>() ||
+                obj.gameObject.GetComponent<MobController>())
+            {
+                return true; 
+            }
+                
+        return false;
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.GetComponent<PlayerController>())
+            GameManager.Instance.ChangeRep(-30);
     }
 }

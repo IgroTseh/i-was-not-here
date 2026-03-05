@@ -14,13 +14,11 @@ public class FovController : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         objectsInFov.Add(collision.gameObject);
-        Debug.Log("Plaer Entered!");
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
         objectsInFov.Remove(collision.gameObject);
-        Debug.Log("Plaer Exited!");
     }
 
     public List<GameObject> GetObjectsInFov()

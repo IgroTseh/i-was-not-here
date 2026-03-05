@@ -15,8 +15,8 @@ TagManager:
   - 
   - 
   - 
-  - FloorTiles
-  - WallsTiles
+  - Fovs
+  - Walls
   - Player And Mobs
   - 
   - 
