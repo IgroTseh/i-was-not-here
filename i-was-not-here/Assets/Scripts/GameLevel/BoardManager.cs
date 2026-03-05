@@ -8,9 +8,12 @@ public class BoardManager : MonoBehaviour
 {
     [SerializeField] private Tilemap exitTileMap;
     [SerializeField] private Tilemap tileMap;
-    [SerializeField] Tile[] floorTiles;
-    [SerializeField] Tile wallTile;
-    [SerializeField] Tile exitTile;
+
+    [SerializeField] private Tile[] floorTiles;
+    [SerializeField] private Tile wallTile;
+    [SerializeField] private Tile exitTile;
+    [SerializeField] private GameObject popaPrefab;
+    [SerializeField] private GameObject nepotrebstvoPrefab;
 
     [SerializeField] private int maxCells = 15;
 
@@ -19,16 +22,19 @@ public class BoardManager : MonoBehaviour
     private Grid grid;
     private List<Vector2Int> neighbourCellsCoords;
     private List<Vector2Int> wallsCoords;
+    private List<Vector2Int> floorCoords;
 
     public void Start()
     {
         grid = GetComponentInChildren<Grid>();
         neighbourCellsCoords = new List<Vector2Int>();
         wallsCoords = new List<Vector2Int>();
+        floorCoords = new List<Vector2Int>();
 
         GenerateField();
         GenerateWalls();
         GenerateExit();
+        GenerateMobs();
     }
 
     private void GenerateField()
@@ -55,6 +61,7 @@ public class BoardManager : MonoBehaviour
 
             SetCellTile(tileMap, coord, tile);
             AddNeighbourCellsCoords(neighbourCellsCoords, coord);
+            floorCoords.Add(coord);
         }
     }
 
@@ -72,7 +79,6 @@ public class BoardManager : MonoBehaviour
         }
     }
 
-
     private void GenerateExit()
     {
         int randomWallIndex = UnityEngine.Random.Range(0, wallsCoords.Count);
@@ -82,10 +88,36 @@ public class BoardManager : MonoBehaviour
         SetCellTile(exitTileMap, randomWallCoords, exitTile);
     }
 
+    private void GenerateMobs()
+    {
+        int cntPopas = GetSpawnCount();
+        int cntNepotrebstvas = GetSpawnCount();
+
+        SpawnMobType(popaPrefab, cntPopas);
+        SpawnMobType(nepotrebstvoPrefab, cntNepotrebstvas);
+    }
+
+    private int GetSpawnCount()
+    {
+        int level = GameManager.Instance.CurrLevel;
+        float levelCoeff = GameManager.Instance.CoeffLevel;
+
+        int maxCount = Convert.ToInt32(Math.Round(3 + level * levelCoeff));
+        return UnityEngine.Random.Range(1, maxCount);
+    }
+
+    public void SpawnMobType(GameObject mob, int cnt)
+    {
+        for (int i = 0; i < cnt; i++)
+        {
+            int randomFloorTileCoord = UnityEngine.Random.Range(0, floorCoords.Count);
+            SpawnInstance(mob, floorCoords[randomFloorTileCoord]);
+        }
+    }
 
     private void SpawnInstance(GameObject prefab, Vector2Int coords)
     {
-        Vector3 spawnCoords = new Vector3(coords.x, coords.y, -1);
+        Vector3 spawnCoords = new Vector3(coords.x, coords.y, -10);
         Quaternion spawnQua = Quaternion.identity;
 
         Instantiate(prefab, spawnCoords, spawnQua);
