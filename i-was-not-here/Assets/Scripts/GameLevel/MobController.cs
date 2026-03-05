@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -25,22 +26,55 @@ public class MobController : MonoBehaviour
 
     private void Update()
     {
+        bool areThereDetections = isFovDetection();
 
-
-        // Patroling movement
-        currTimer += Time.deltaTime;
-        if (currTimer >= changeDirTimer)
+        if (areThereDetections)
         {
-            moveDir = GetRandomDir();
-            currTimer = 0;
+            // Objects detected
+            bool isPlayerInFov = false;
+            int cntNepotrebstvo = 0;
+
+            foreach (var obj in objectsInFov)
+            {
+                if (obj.GetComponent<PlayerController>())
+                {
+                    isPlayerInFov = true;
+                    Debug.Log("PlayerDetected");
+                    Move(GetDirToObject(obj));
+                }
+                else if (obj.GetComponent<Nepotrebstvo>())
+                {
+                    cntNepotrebstvo++;
+                    if (isPlayerInFov)
+                        Move(GetDirToObject(obj));
+                }
+            }
+
+            if (isPlayerInFov)
+            {
+                if (cntNepotrebstvo > 0)
+                    GameManager.Instance.ChangeRep((cntNepotrebstvo) * -10);
+                else
+                    GameManager.Instance.ChangeRep(-5);
+            }
         }
-        Move(moveDir);
+        else
+        {
+            // Patroling movement
+            currTimer += Time.deltaTime;
+            if (currTimer >= changeDirTimer)
+            {
+                moveDir = GetRandomDir();
+                currTimer = 0;
+            }
+            Move(moveDir);
+        }
     }
 
 
     private Vector3 GetRandomDir()
     {
-        int dirIndex = Random.Range(0, 4);
+        int dirIndex = UnityEngine.Random.Range(0, 4);
 
         switch (dirIndex)
         {
@@ -58,33 +92,14 @@ public class MobController : MonoBehaviour
         transform.Translate(move);
     }
 
+    private Vector3 GetDirToObject(GameObject obj)
+    {
+        return (obj.transform.position - transform.position).normalized;
+    }
 
-    public void CehckFov()
+    private bool isFovDetection()
     {
         objectsInFov = fovController.GetObjectsInFov();
-
-        bool isPlayerInFov = false;
-        int cntNepotrebstvo = 0;
-
-        foreach (var obj in objectsInFov)
-        {
-            if (obj.GetComponent<PlayerController>())
-                isPlayerInFov = true;
-            else if (obj.GetComponent<Nepotrebstvo>())
-                cntNepotrebstvo++;
-        }
-
-        if (isPlayerInFov)
-        {
-            if (cntNepotrebstvo > 0)
-                // GameManager -> ChangeRep(-x * cntNepotrbstvo)
-                Debug.Log("Player and nepotrebstvo");
-            else
-                // Follow player
-                Debug.Log("Following player");
-        }
-        else if (cntNepotrebstvo > 0)
-            // Move to nepotrebstvo
-            Debug.Log("Move to nepotrebstvo");
+        return objectsInFov.Count > 0;
     }
 }
