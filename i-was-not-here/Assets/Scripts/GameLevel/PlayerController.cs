@@ -4,20 +4,11 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    public static PlayerController Instance { get; private set; }
-
-    [SerializeField] private float moveSpeed = 10f;
-
-
-    private void Awake()
+    [SerializeField] private float moveSpeed = 3f;
+    private Animator animator;
+    public void Start()
     {
-        if (Instance != null && Instance != this)
-        {
-            Destroy(gameObject);
-            return;
-        }
-
-        Instance = this;
+        animator = GetComponent<Animator>();
     }
 
     public void Update()
@@ -42,8 +33,15 @@ public class PlayerController : MonoBehaviour
         }
 
         if (move != Vector3.zero)
+        {
             move = move.normalized * moveSpeed * Time.deltaTime;
+            animator.SetBool("isWalking", true);
+        }
+        else
+        {
+            animator.SetBool("isWalking", false);
+        }
 
-        transform.Translate(move);
+            transform.Translate(move);
     }
 }
