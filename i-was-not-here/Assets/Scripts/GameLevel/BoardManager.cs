@@ -1,23 +1,24 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.U2D.Aseprite;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
 public class BoardManager : MonoBehaviour
 {
+
+
     [SerializeField] Tile[] floorTiles;
     [SerializeField] Tile wallTile;
     [SerializeField] Tile exitTile;
-    [SerializeField] Exit exitPrefab;
+
+    [SerializeField] GameObject exitPrefab;
 
     [SerializeField] private int maxCells = 15;
 
     private Tilemap tileMap;
     private Grid grid;
     private List<Vector2Int> neighbourCellsCoords;
-
 
     public void Start()
     {
@@ -65,21 +66,8 @@ public class BoardManager : MonoBehaviour
             var candidate = neighbourCellsCoords[i];
 
             if ((!tileMap.HasTile(new Vector3Int(candidate.x, candidate.y, 0))))
-            {
-                if (i == neighbourCellsCoords.Count - 1)
-                {
-                    Debug.Log("Vihod");
-                    SetCellTile(candidate, exitTile);
-                }
-                else
-                {
-                    Debug.Log("Stena");
                     SetCellTile(candidate, wallTile);
-                }
-            }
         }
-
-
     }
 
 
@@ -90,9 +78,16 @@ public class BoardManager : MonoBehaviour
 
         SetCellTile(randomNeighbourCoords, exitTile);
 
-        Vector3 exitCoords = new Vector3(randomNeighbourCoords.x, randomNeighbourCoords.y, 10);
-        Instantiate(exitPrefab, exitCoords, Quaternion.identity);
+        SpawnInstance(exitPrefab, randomNeighbourCoords);
+    }
 
+
+    private void SpawnInstance(GameObject prefab, Vector2Int coords)
+    {
+        Vector3 spawnCoords = new Vector3(coords.x, coords.y, -1);
+        Quaternion spawnQua = Quaternion.identity;
+
+        Instantiate(prefab, spawnCoords, spawnQua);
     }
 
     private void SetCellTile(Vector2Int coord, Tile tile)
