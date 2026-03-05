@@ -291,7 +291,6 @@ GameObject:
   - component: {fileID: 1016482970}
   - component: {fileID: 1016482969}
   - component: {fileID: 1016482972}
-  - component: {fileID: 1016482973}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -366,12 +365,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1016482968}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -9}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1931619493}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1016482972
 MonoBehaviour:
@@ -417,21 +416,6 @@ MonoBehaviour:
     m_MipBias: 0
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
---- !u!114 &1016482973
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1016482968}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d8084e22126b2ae48b146a8b45ba4c1a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  target: {fileID: 1931619493}
-  offset: {x: 0, y: 0, z: 0}
-  smoothSpeed: 0.125
 --- !u!1 &1772766143
 GameObject:
   m_ObjectHideFlags: 0
@@ -498,7 +482,6 @@ MonoBehaviour:
   wallTile: {fileID: 11400000, guid: 5aadbd969486f1d4aabc0750cc033773, type: 2}
   exitTile: {fileID: 11400000, guid: 0d092d90decb57b44a8236bf93b8ef8c, type: 2}
   exitPrefab: {fileID: 7171937157194357795, guid: b932d6557d8dbe54f984f68bcd9f0a25, type: 3}
-  playerPrefab: {fileID: 5667704412429684255, guid: 4f8a22b68e4f12c40b48328f38ab929a, type: 3}
   maxCells: 300
 --- !u!1 &1931619490
 GameObject:
@@ -593,10 +576,11 @@ Transform:
   m_GameObject: {fileID: 1931619490}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalPosition: {x: 0, y: 0, z: -1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1016482971}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!70 &1931619494
@@ -638,6 +622,5 @@ CapsuleCollider2D:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
-  - {fileID: 1016482971}
   - {fileID: 1772766145}
   - {fileID: 1931619493}
