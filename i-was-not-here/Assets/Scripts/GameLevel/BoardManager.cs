@@ -25,7 +25,7 @@ public class BoardManager : MonoBehaviour
         neighbourCellsCoords = new List<Vector2Int>();
 
         GenerateField();
-
+        GenerateWalls();
     }
 
     private void GenerateField()
@@ -53,13 +53,19 @@ public class BoardManager : MonoBehaviour
             SetCellTile(coord, tile);
             AddNeighbourCellsCoords(neighbourCellsCoords, coord);
         }
+    }
 
+    private void GenerateWalls()
+    {
         while (neighbourCellsCoords.Count > 0)
         {
             var candidate = neighbourCellsCoords[0];
 
             if ((!tileMap.HasTile(new Vector3Int(candidate.x, candidate.y, 0))))
+            {
                 SetCellTile(candidate, wallTile);
+                Debug.Log("Stena");
+            }
 
             neighbourCellsCoords.RemoveAt(0);
         }
