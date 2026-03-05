@@ -6,26 +6,25 @@ using UnityEngine.Tilemaps;
 
 public class BoardManager : MonoBehaviour
 {
-
-
+    [SerializeField] private Tilemap exitTileMap;
+    [SerializeField] private Tilemap tileMap;
     [SerializeField] Tile[] floorTiles;
     [SerializeField] Tile wallTile;
     [SerializeField] Tile exitTile;
 
-    [SerializeField] GameObject exitPrefab;
-
     [SerializeField] private int maxCells = 15;
 
-    private Tilemap tileMap;
+    
+
     private Grid grid;
     private List<Vector2Int> neighbourCellsCoords;
+    private List<Vector2Int> wallsCoords;
 
     public void Start()
     {
-
-        tileMap = GetComponentInChildren<Tilemap>();
         grid = GetComponentInChildren<Grid>();
         neighbourCellsCoords = new List<Vector2Int>();
+        wallsCoords = new List<Vector2Int>();
 
         GenerateField();
         GenerateWalls();
@@ -54,7 +53,7 @@ public class BoardManager : MonoBehaviour
             int randomTileIndex = UnityEngine.Random.Range(0, floorTiles.Length);
             tile = floorTiles[randomTileIndex];
 
-            SetCellTile(coord, tile);
+            SetCellTile(tileMap, coord, tile);
             AddNeighbourCellsCoords(neighbourCellsCoords, coord);
         }
     }
@@ -66,19 +65,21 @@ public class BoardManager : MonoBehaviour
             var candidate = neighbourCellsCoords[i];
 
             if ((!tileMap.HasTile(new Vector3Int(candidate.x, candidate.y, 0))))
-                    SetCellTile(candidate, wallTile);
+            {
+                SetCellTile(tileMap, candidate, wallTile);
+                wallsCoords.Add(candidate);
+            }
         }
     }
 
 
     private void GenerateExit()
     {
-        int randomNeighbourIndex = UnityEngine.Random.Range(0, neighbourCellsCoords.Count);
-        Vector2Int randomNeighbourCoords = neighbourCellsCoords[randomNeighbourIndex];
+        int randomWallIndex = UnityEngine.Random.Range(0, wallsCoords.Count);
+        Vector2Int randomWallCoords = wallsCoords[randomWallIndex];
 
-        SetCellTile(randomNeighbourCoords, exitTile);
-
-        SpawnInstance(exitPrefab, randomNeighbourCoords);
+        SetCellTile(tileMap, randomWallCoords, floorTiles[0]);
+        SetCellTile(exitTileMap, randomWallCoords, exitTile);
     }
 
 
@@ -90,9 +91,9 @@ public class BoardManager : MonoBehaviour
         Instantiate(prefab, spawnCoords, spawnQua);
     }
 
-    private void SetCellTile(Vector2Int coord, Tile tile)
+    private void SetCellTile(Tilemap tileM, Vector2Int coord, Tile tile)
     {
-        tileMap.SetTile(new Vector3Int(coord.x, coord.y, 0), tile);
+        tileM.SetTile(new Vector3Int(coord.x, coord.y, 0), tile);
     }
 
 
