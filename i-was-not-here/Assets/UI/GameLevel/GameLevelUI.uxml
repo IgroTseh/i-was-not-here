@@ -1,0 +1,3 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:Label tabindex="-1" text="Reputation: 100" parse-escape-sequences="true" display-tooltip-when-elided="true" style="position: absolute; bottom: 0; left: 20%; top: 80%; right: 20%; font-size: 25px; color: rgb(20, 213, 0); -unity-text-align: middle-center;" />
+</ui:UXML>
