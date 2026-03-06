@@ -54,9 +54,9 @@ public class MobController : MonoBehaviour
             if (isPlayerInFov)
             {
                 if (cntNepotrebstvo > 0)
-                    GameManager.Instance.ChangeRep((cntNepotrebstvo) * -10);
+                    GameManager.Instance.ChangeRep((cntNepotrebstvo) * -0.2f);
                 else
-                    GameManager.Instance.ChangeRep(-5);
+                    GameManager.Instance.ChangeRep(-0.05f);
             }
 
             currTimer = changeDirTimer;
@@ -115,6 +115,6 @@ public class MobController : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.GetComponent<PlayerController>())
-            GameManager.Instance.ChangeRep(-30);
+            GameManager.Instance.ChangeRep(-5f);
     }
 }
