@@ -499,9 +499,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currRep: 0
-  maxRep: 0
-  CurrLevel: 0
+  maxRep: 100
+  CurrLevel: 1
   CoeffLevel: 0
+  boardManager: {fileID: 1772766146}
+  uiDoc: {fileID: 623886401}
 --- !u!4 &788972430
 Transform:
   m_ObjectHideFlags: 0

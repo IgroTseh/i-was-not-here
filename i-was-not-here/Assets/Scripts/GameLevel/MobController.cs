@@ -45,7 +45,7 @@ public class MobController : MonoBehaviour
                 else if (obj.GetComponent<Nepotrebstvo>())
                 {
                     cntNepotrebstvo++;
-                    if (isPlayerInFov)
+                    if (!isPlayerInFov)
                         Move(GetDirToObject(obj));
                 }
 

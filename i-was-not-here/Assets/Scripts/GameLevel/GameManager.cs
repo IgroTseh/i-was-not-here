@@ -26,20 +26,37 @@ public class GameManager : MonoBehaviour
         }
 
         Instance = this;
+        
     }
 
     private void Start()
     {
         repLabel = uiDoc.rootVisualElement.Q<Label>("CurrRep");
+        
 
-        CurrLevel = 1;
-        currRep = maxRep;
+        if (PlayerPrefs.HasKey("CurrLevel"))
+        {
+            CurrLevel = PlayerPrefs.GetInt("CurrLevel");
+            currRep = PlayerPrefs.GetFloat("CurrRep");
+        }
+        else
+        {
+            CurrLevel = 1;
+            currRep = maxRep;
+        }
+        
+        boardManager.Init();
+        ChangeRep(0f);
     }
+
+
+
 
     public void NextLevel()
     {
-        SceneManager.LoadScene("MainMenu");
         CurrLevel++;
+        SaveData();
+        SceneManager.LoadScene("GameLevel");     
     }
 
     public void ChangeRep(float repDamage)
@@ -55,5 +72,21 @@ public class GameManager : MonoBehaviour
             repLabel.style.color = Color.red;
         else
             repLabel.style.color = Color.black;
+
+        if (currRep <= 0)
+            GameOver();
+    }
+
+    private void SaveData()
+    {
+        PlayerPrefs.SetInt("CurrLevel", CurrLevel);
+        PlayerPrefs.SetFloat("CurrRep", currRep);
+        PlayerPrefs.Save();
+    }
+
+    private void GameOver()
+    {
+        PlayerPrefs.DeleteAll();
+        SceneManager.LoadScene("MainMenu");
     }
 }

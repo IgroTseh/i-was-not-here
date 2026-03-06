@@ -24,7 +24,7 @@ public class BoardManager : MonoBehaviour
     private List<Vector2Int> wallsCoords;
     private List<Vector2Int> floorCoords;
 
-    public void Start()
+    public void Init()
     {
         grid = GetComponentInChildren<Grid>();
         neighbourCellsCoords = new List<Vector2Int>();
