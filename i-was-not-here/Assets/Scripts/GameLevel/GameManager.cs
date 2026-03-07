@@ -8,13 +8,14 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
 
-    [SerializeField] private float currRep;
+    [SerializeField] public float CurrRep;
     [SerializeField] private float maxRep = 100f;
     public int CurrLevel;
     public float CoeffLevel;
 
     [SerializeField] BoardManager boardManager;
     [SerializeField] UIDocument uiDoc;
+    [SerializeField] PlayerPrefsGameLevelManager prefsManager;
     private Label repLabel;
 
     private void Awake()
@@ -37,12 +38,12 @@ public class GameManager : MonoBehaviour
         if (PlayerPrefs.HasKey("CurrLevel"))
         {
             CurrLevel = PlayerPrefs.GetInt("CurrLevel");
-            currRep = PlayerPrefs.GetFloat("CurrRep");
+            CurrRep = PlayerPrefs.GetFloat("CurrRep");
         }
         else
         {
             CurrLevel = 1;
-            currRep = maxRep;
+            CurrRep = maxRep;
         }
         
         boardManager.Init();
@@ -50,43 +51,33 @@ public class GameManager : MonoBehaviour
     }
 
 
-
-
     public void NextLevel()
     {
         CurrLevel++;
-        SaveData();
+        prefsManager.SaveChanges();
         SceneManager.LoadScene("GameLevel");     
     }
 
     public void ChangeRep(float repDamage)
     {
-        currRep += repDamage;
-        repLabel.text = $"{currRep}";
+        CurrRep += repDamage;
+        repLabel.text = $"{CurrRep}";
 
-        if (currRep >= maxRep * 0.75)
+        if (CurrRep >= maxRep * 0.75)
             repLabel.style.color = Color.green;
-        else if (currRep >= maxRep * 0.4 && currRep < maxRep * 0.75)
+        else if (CurrRep >= maxRep * 0.4 && CurrRep < maxRep * 0.75)
             repLabel.style.color = Color.yellow;
-        else if (currRep > maxRep * 0 && currRep < maxRep * 0.4)
+        else if (CurrRep > maxRep * 0 && CurrRep < maxRep * 0.4)
             repLabel.style.color = Color.red;
         else
             repLabel.style.color = Color.black;
 
-        if (currRep <= 0)
+        if (CurrRep <= 0)
             GameOver();
-    }
-
-    private void SaveData()
-    {
-        PlayerPrefs.SetInt("CurrLevel", CurrLevel);
-        PlayerPrefs.SetFloat("CurrRep", currRep);
-        PlayerPrefs.Save();
     }
 
     private void GameOver()
     {
-        PlayerPrefs.DeleteAll();
         SceneManager.LoadScene("MainMenu");
     }
 }
