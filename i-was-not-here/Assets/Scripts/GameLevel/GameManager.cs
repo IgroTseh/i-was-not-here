@@ -10,8 +10,8 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] public float CurrRep;
     [SerializeField] private float maxRep = 100f;
-    public int CurrLevel;
-    public float CoeffLevel;
+    public int CurrLevel = 0;
+    public float CoeffLevel = 0.5f;
 
     [SerializeField] BoardManager boardManager;
     [SerializeField] UIDocument uiDoc;

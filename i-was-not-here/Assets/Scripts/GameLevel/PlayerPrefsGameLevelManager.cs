@@ -7,21 +7,21 @@ public class PlayerPrefsGameLevelManager : MonoBehaviour
     private GameManager gameManager;
     private List<int> records;
 
-    public void Satrt()
+    public void Awake()
     {
         gameManager = GameManager.Instance;
         records = new List<int>();
 
-        records[0] = PlayerPrefs.GetInt("Top1");
-        records[1] = PlayerPrefs.GetInt("Top2");
-        records[2] = PlayerPrefs.GetInt("Top3");
-        records[3] = PlayerPrefs.GetInt("Top4");
-        records[4] = PlayerPrefs.GetInt("Top5");
-        records[5] = PlayerPrefs.GetInt("Top6");
-        records[6] = PlayerPrefs.GetInt("Top7");
-        records[7] = PlayerPrefs.GetInt("Top8");
-        records[8] = PlayerPrefs.GetInt("Top9");
-        records[9] = PlayerPrefs.GetInt("Top10");
+        records.Add(PlayerPrefs.GetInt("Top1"));
+        records.Add(PlayerPrefs.GetInt("Top2"));
+        records.Add(PlayerPrefs.GetInt("Top3"));
+        records.Add(PlayerPrefs.GetInt("Top4"));
+        records.Add(PlayerPrefs.GetInt("Top5"));
+        records.Add(PlayerPrefs.GetInt("Top6"));
+        records.Add(PlayerPrefs.GetInt("Top7"));
+        records.Add(PlayerPrefs.GetInt("Top8"));
+        records.Add(PlayerPrefs.GetInt("Top9"));
+        records.Add(PlayerPrefs.GetInt("Top10"));
     }
 
 

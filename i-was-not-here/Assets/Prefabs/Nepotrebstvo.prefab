@@ -48,8 +48,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e505908580f2444b92aec0f006745fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  changeDirTimer: 4
-  moveSpeed: 4
+  changeDirTimer: 1
+  moveSpeed: 6
 --- !u!212 &4580250457987628639
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -194,4 +194,4 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4

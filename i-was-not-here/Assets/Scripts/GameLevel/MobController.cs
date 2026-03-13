@@ -30,7 +30,7 @@ public class MobController : MonoBehaviour
         bool areThereDetections = isFovDetection();
 
         if (areThereDetections)
-        {;
+        {
             // Objects detected
             bool isPlayerInFov = false;
             int cntNepotrebstvo = 0;
@@ -58,6 +58,7 @@ public class MobController : MonoBehaviour
                 else
                     GameManager.Instance.ChangeRep(-0.05f);
             }
+            
 
             currTimer = changeDirTimer;
         }

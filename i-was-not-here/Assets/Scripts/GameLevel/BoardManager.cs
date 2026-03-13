@@ -91,7 +91,7 @@ public class BoardManager : MonoBehaviour
     private void GenerateMobs()
     {
         int cntPopas = GetSpawnCount();
-        int cntNepotrebstvas = GetSpawnCount();
+        int cntNepotrebstvas = GetSpawnCount() * 3;
 
         SpawnMobType(popaPrefab, cntPopas);
         SpawnMobType(nepotrebstvoPrefab, cntNepotrebstvas);
