@@ -78,6 +78,6 @@ public class GameManager : MonoBehaviour
 
     private void GameOver()
     {
-        SceneManager.LoadScene("MainMenu");
+        SceneManager.LoadScene("Results");
     }
 }

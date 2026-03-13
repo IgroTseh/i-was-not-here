@@ -1,0 +1,8 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:Label tabindex="-1" text="You&apos;ve survived through" parse-escape-sequences="true" display-tooltip-when-elided="true" name="YouSurvived" style="font-size: 42px; top: 130px; left: 262px; -unity-font-style: bold;" />
+    <ui:Label tabindex="-1" text="100 days" parse-escape-sequences="true" display-tooltip-when-elided="true" name="CntDays" style="font-size: 42px; top: 163px; left: 405px; -unity-font-style: bold;" />
+    <ui:Label tabindex="-1" text="of investigation" parse-escape-sequences="true" display-tooltip-when-elided="true" name="OfInvestigation" style="font-size: 42px; top: 188px; left: 332px; right: 285px; -unity-font-style: bold;" />
+    <ui:Button text="Play Again" parse-escape-sequences="true" display-tooltip-when-elided="true" name="PlayAgain" style="background-color: rgb(0, 0, 0); color: rgb(255, 255, 255); font-size: 36px; height: 68px; width: 230px; -unity-slice-top: 25; top: 221px; left: 376px;" />
+    <ui:Button text="To Menu" parse-escape-sequences="true" display-tooltip-when-elided="true" name="ToMenu" style="background-color: rgb(0, 0, 0); color: rgb(255, 255, 255); font-size: 36px; height: 68px; width: 230px; -unity-slice-top: 25; top: 221px; left: 376px;" />
+    <ui:Button text="Exit" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Exit" style="background-color: rgb(0, 0, 0); color: rgb(255, 255, 255); font-size: 36px; height: 68px; width: 230px; -unity-slice-top: 25; top: 221px; left: 376px;" />
+</ui:UXML>

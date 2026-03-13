@@ -28,7 +28,7 @@ public class MainMenuController : MonoBehaviour
     private void OnPlayClicked()
     {
         Debug.Log("Play!");
-        SceneManager.LoadScene("GameLevel");
+        SceneManager.LoadScene("InitRoom");
     }
 
     private void OnSettingsClicked()

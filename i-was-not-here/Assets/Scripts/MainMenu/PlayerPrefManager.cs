@@ -32,9 +32,6 @@ public class PlayerPrefManager : MonoBehaviour
             Volume = PlayerPrefs.GetFloat("Volume");
             Music = PlayerPrefs.GetFloat("Music");
 
-            PlayerPrefs.SetInt("CurrLevel", 0);
-            PlayerPrefs.SetFloat("CurrRep", 100f);
-
         }
         else
         {
@@ -58,9 +55,6 @@ public class PlayerPrefManager : MonoBehaviour
             PlayerPrefs.SetFloat("GeneralVolume", 50f);
             PlayerPrefs.SetFloat("Sounds", 50f);
             PlayerPrefs.SetFloat("Music", 50f);
-
-            PlayerPrefs.SetInt("CurrLevel", 0);
-            PlayerPrefs.SetFloat("CurrRep", 100f);
         }
     }
 }
